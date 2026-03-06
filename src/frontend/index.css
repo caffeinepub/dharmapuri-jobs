@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* ─── Dharmapuri Jobs Palette — Warm Saffron + Deep Teal ─── */
+    /* Background: warm off-white parchment */
+    --background: 0.975 0.008 80;
+    --foreground: 0.18 0.03 45;
+
+    /* Card: pure white */
+    --card: 1 0 0;
+    --card-foreground: 0.18 0.03 45;
+
+    /* Popover: white */
+    --popover: 1 0 0;
+    --popover-foreground: 0.18 0.03 45;
+
+    /* Primary: deep teal */
+    --primary: 0.42 0.11 200;
+    --primary-foreground: 0.99 0 0;
+
+    /* Secondary: light saffron wash */
+    --secondary: 0.95 0.03 60;
+    --secondary-foreground: 0.28 0.05 45;
+
+    /* Muted: light warm gray */
+    --muted: 0.93 0.01 70;
+    --muted-foreground: 0.52 0.02 60;
+
+    /* Accent: vibrant saffron orange */
+    --accent: 0.72 0.19 55;
+    --accent-foreground: 0.99 0 0;
+
+    /* Destructive: red */
+    --destructive: 0.58 0.24 27;
+    --destructive-foreground: 0.99 0 0;
+
+    /* Success: green */
+    --success: 0.52 0.17 145;
+    --success-foreground: 0.99 0 0;
+
+    /* Warning: amber */
+    --warning: 0.78 0.17 75;
+    --warning-foreground: 0.18 0.03 45;
+
+    /* Saffron: main brand color */
+    --saffron: 0.72 0.19 55;
+    --saffron-light: 0.92 0.08 65;
+    --saffron-dark: 0.55 0.2 45;
+
+    /* Teal: secondary brand */
+    --teal: 0.42 0.11 200;
+    --teal-light: 0.88 0.06 200;
+    --teal-dark: 0.32 0.1 210;
+
+    --border: 0.88 0.015 65;
+    --input: 0.90 0.01 65;
+    --ring: 0.72 0.19 55;
+
+    --chart-1: 0.72 0.19 55;
+    --chart-2: 0.42 0.11 200;
+    --chart-3: 0.58 0.24 27;
+    --chart-4: 0.52 0.17 145;
+    --chart-5: 0.65 0.15 290;
+
+    --sidebar: 0.975 0.008 80;
+    --sidebar-foreground: 0.18 0.03 45;
+    --sidebar-primary: 0.72 0.19 55;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.93 0.03 60;
+    --sidebar-accent-foreground: 0.28 0.05 45;
+    --sidebar-border: 0.88 0.015 65;
+    --sidebar-ring: 0.72 0.19 55;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* ── Mobile App Shell ── */
+.app-shell {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+  background: oklch(var(--background));
+}
+
+/* ── Category chip colors ── */
+.chip-tea {
+  background: oklch(0.94 0.05 75);
+  color: oklch(0.42 0.12 60);
+}
+.chip-bakery {
+  background: oklch(0.93 0.06 35);
+  color: oklch(0.40 0.14 28);
+}
+.chip-tuition {
+  background: oklch(0.91 0.07 290);
+  color: oklch(0.38 0.15 280);
+}
+.chip-supermarket {
+  background: oklch(0.92 0.07 145);
+  color: oklch(0.38 0.14 145);
+}
+.chip-courier {
+  background: oklch(0.90 0.06 200);
+  color: oklch(0.35 0.11 200);
+}
+.chip-clinic {
+  background: oklch(0.91 0.05 340);
+  color: oklch(0.40 0.14 340);
+}
+.chip-others {
+  background: oklch(0.91 0.02 240);
+  color: oklch(0.38 0.06 240);
+}
+.chip-all {
+  background: oklch(0.92 0.05 55);
+  color: oklch(0.42 0.14 50);
+}
+
+/* ── Saffron gradient background for hero ── */
+.saffron-hero {
+  background: linear-gradient(
+    135deg,
+    oklch(0.35 0.09 210) 0%,
+    oklch(0.28 0.08 225) 60%,
+    oklch(0.22 0.06 240) 100%
+  );
+}
+
+/* ── Status badge colors ── */
+.status-pending {
+  background: oklch(0.92 0.08 75);
+  color: oklch(0.42 0.14 60);
+}
+.status-accepted {
+  background: oklch(0.90 0.10 145);
+  color: oklch(0.35 0.14 145);
+}
+.status-rejected {
+  background: oklch(0.92 0.08 27);
+  color: oklch(0.42 0.16 27);
+}
+
+/* ── Job card hover ── */
+.job-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.job-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px oklch(0.42 0.11 200 / 0.15);
+}
+
+/* ── Bottom nav ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  background: oklch(1 0 0);
+  border-top: 1px solid oklch(var(--border));
+  z-index: 50;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ── Skeleton pulse ── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    oklch(0.93 0.01 70) 25%,
+    oklch(0.97 0.005 70) 50%,
+    oklch(0.93 0.01 70) 75%
+  );
+  background-size: 200% auto;
+  animation: shimmer 1.5s linear infinite;
+  border-radius: 6px;
+}
+
+/* ── Scrollbar hide for category chips ── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
