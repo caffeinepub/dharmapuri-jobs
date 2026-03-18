@@ -1,6 +1,6 @@
 import type { Job } from "@/hooks/useQueries";
 import { cn } from "@/lib/utils";
-import { Banknote, ChevronRight, Clock, MapPin } from "lucide-react";
+import { ChevronRight, MapPin } from "lucide-react";
 import CategoryChip from "./CategoryChip";
 
 interface Props {
@@ -31,12 +31,14 @@ export default function JobCard({
       type="button"
       onClick={onClick}
       data-ocid={`job.item.${index}`}
-      className="w-full text-left bg-white rounded-2xl shadow-card job-card border border-border/60 p-4 flex flex-col gap-3"
+      className={cn(
+        "w-full text-left bg-card rounded-2xl card-elevated job-card border border-border/60 p-4 flex flex-col gap-3",
+      )}
     >
-      {/* Top row */}
+      {/* Top row: title + distance badge */}
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-foreground text-sm leading-tight line-clamp-2">
+          <h3 className="font-semibold text-foreground text-sm leading-tight line-clamp-2">
             {job.title}
           </h3>
           {businessName && (
@@ -46,39 +48,42 @@ export default function JobCard({
           )}
         </div>
         {distanceKm !== undefined && (
-          <div className="flex items-center gap-1 rounded-full bg-teal-light px-2 py-1 text-teal text-xs font-semibold shrink-0">
+          <div className="badge-violet-cyan flex items-center gap-1 rounded-full text-white text-xs font-semibold px-2.5 py-1 shrink-0">
             <MapPin className="w-3 h-3" />
             {distanceKm.toFixed(1)} km
           </div>
         )}
       </div>
 
-      {/* Meta row */}
-      <div className="flex items-center gap-3 flex-wrap">
-        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-          <Banknote className="w-3.5 h-3.5" />
-          <span className="font-semibold text-foreground">
-            {formatPay(job.payAmount, job.payType)}
-          </span>
-        </div>
-        <div className="flex items-center gap-1 text-xs text-muted-foreground">
-          <MapPin className="w-3 h-3" />
-          <span className="truncate max-w-[140px]">
-            {job.address || "Dharmapuri"}
-          </span>
-        </div>
+      {/* Pay — vivid cyan/saffron */}
+      <div className="pay-gradient rounded-xl px-3 py-2">
+        <p className="text-xs text-muted-foreground font-medium mb-0.5">Pay</p>
+        <p className="text-base font-black text-cyan leading-none">
+          {formatPay(job.payAmount, job.payType)}
+        </p>
       </div>
 
-      {/* Bottom row */}
+      {/* Address */}
+      <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+        <MapPin className="w-3 h-3 text-violet shrink-0" />
+        <span className="truncate max-w-[180px]">
+          {job.address || "Dharmapuri"}
+        </span>
+      </div>
+
+      {/* Bottom row: category + tags + chevron */}
       <div className="flex items-center justify-between gap-2">
         <CategoryChip category={job.category} size="sm" showEmoji />
         <div className="flex items-center gap-1 text-xs text-muted-foreground">
           {job.tags.slice(0, 2).map((tag) => (
-            <span key={tag} className="bg-muted px-2 py-0.5 rounded-full">
+            <span
+              key={tag}
+              className="bg-muted/80 border border-border/50 px-2 py-0.5 rounded-full text-muted-foreground"
+            >
               {tag}
             </span>
           ))}
-          <ChevronRight className="w-4 h-4 ml-1 opacity-50" />
+          <ChevronRight className="w-4 h-4 ml-0.5 opacity-40 text-violet" />
         </div>
       </div>
     </button>

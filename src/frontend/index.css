@@ -2,88 +2,125 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Self-hosted fonts ── */
+@font-face {
+  font-family: 'Sora';
+  src: url('/assets/fonts/Sora[wght].woff2') format('woff2');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/assets/fonts/BricolageGrotesque[opsz,wdth,wght].woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
-    /* ─── Dharmapuri Jobs Palette — Warm Saffron + Deep Teal ─── */
-    /* Background: warm off-white parchment */
-    --background: 0.975 0.008 80;
-    --foreground: 0.18 0.03 45;
+    /* ─── Dharmapuri Jobs — Dark Premium Fintech ─── */
+    /* Deep dark navy background */
+    --background: 0.09 0.025 265;
+    --foreground: 0.97 0.005 265;
 
-    /* Card: pure white */
-    --card: 1 0 0;
-    --card-foreground: 0.18 0.03 45;
+    /* Card: dark elevated surface */
+    --card: 0.13 0.02 260;
+    --card-foreground: 0.97 0.005 265;
 
-    /* Popover: white */
-    --popover: 1 0 0;
-    --popover-foreground: 0.18 0.03 45;
+    /* Popover */
+    --popover: 0.13 0.02 260;
+    --popover-foreground: 0.97 0.005 265;
 
-    /* Primary: deep teal */
-    --primary: 0.42 0.11 200;
+    /* Primary: electric violet */
+    --primary: 0.62 0.22 285;
     --primary-foreground: 0.99 0 0;
 
-    /* Secondary: light saffron wash */
-    --secondary: 0.95 0.03 60;
-    --secondary-foreground: 0.28 0.05 45;
+    /* Secondary: dark violet-gray */
+    --secondary: 0.18 0.04 270;
+    --secondary-foreground: 0.90 0.01 265;
 
-    /* Muted: light warm gray */
-    --muted: 0.93 0.01 70;
-    --muted-foreground: 0.52 0.02 60;
+    /* Muted: dark muted surface */
+    --muted: 0.16 0.02 265;
+    --muted-foreground: 0.60 0.02 265;
 
-    /* Accent: vibrant saffron orange */
-    --accent: 0.72 0.19 55;
+    /* Accent: hot pink / magenta */
+    --accent: 0.65 0.26 340;
     --accent-foreground: 0.99 0 0;
 
-    /* Destructive: red */
+    /* Destructive */
     --destructive: 0.58 0.24 27;
     --destructive-foreground: 0.99 0 0;
 
-    /* Success: green */
+    /* Success */
     --success: 0.52 0.17 145;
     --success-foreground: 0.99 0 0;
 
-    /* Warning: amber */
+    /* Warning */
     --warning: 0.78 0.17 75;
     --warning-foreground: 0.18 0.03 45;
 
-    /* Saffron: main brand color */
-    --saffron: 0.72 0.19 55;
-    --saffron-light: 0.92 0.08 65;
-    --saffron-dark: 0.55 0.2 45;
+    /* Saffron: warm amber accent */
+    --saffron: 0.78 0.18 65;
+    --saffron-light: 0.22 0.06 65;
+    --saffron-dark: 0.60 0.20 55;
 
-    /* Teal: secondary brand */
-    --teal: 0.42 0.11 200;
-    --teal-light: 0.88 0.06 200;
-    --teal-dark: 0.32 0.1 210;
+    /* Violet: primary brand */
+    --violet: 0.62 0.22 285;
+    --violet-light: 0.25 0.06 285;
+    --violet-dark: 0.45 0.20 285;
 
-    --border: 0.88 0.015 65;
-    --input: 0.90 0.01 65;
-    --ring: 0.72 0.19 55;
+    /* Pink: accent */
+    --pink: 0.65 0.26 340;
+    --pink-light: 0.22 0.06 340;
+    --pink-dark: 0.50 0.22 340;
 
-    --chart-1: 0.72 0.19 55;
-    --chart-2: 0.42 0.11 200;
-    --chart-3: 0.58 0.24 27;
-    --chart-4: 0.52 0.17 145;
-    --chart-5: 0.65 0.15 290;
+    /* Cyan: highlight */
+    --cyan: 0.75 0.15 195;
+    --cyan-light: 0.18 0.05 195;
 
-    --sidebar: 0.975 0.008 80;
-    --sidebar-foreground: 0.18 0.03 45;
-    --sidebar-primary: 0.72 0.19 55;
+    /* Teal: kept for compatibility */
+    --teal: 0.62 0.22 285;
+    --teal-light: 0.25 0.06 285;
+    --teal-dark: 0.45 0.20 285;
+
+    /* Borders & inputs */
+    --border: 0.22 0.02 265;
+    --input: 0.18 0.02 265;
+    --ring: 0.62 0.22 285;
+
+    /* Charts */
+    --chart-1: 0.62 0.22 285;
+    --chart-2: 0.65 0.26 340;
+    --chart-3: 0.75 0.15 195;
+    --chart-4: 0.78 0.18 65;
+    --chart-5: 0.52 0.17 145;
+
+    /* Sidebar */
+    --sidebar: 0.11 0.03 268;
+    --sidebar-foreground: 0.97 0.005 265;
+    --sidebar-primary: 0.62 0.22 285;
     --sidebar-primary-foreground: 0.99 0 0;
-    --sidebar-accent: 0.93 0.03 60;
-    --sidebar-accent-foreground: 0.28 0.05 45;
-    --sidebar-border: 0.88 0.015 65;
-    --sidebar-ring: 0.72 0.19 55;
+    --sidebar-accent: 0.18 0.04 270;
+    --sidebar-accent-foreground: 0.90 0.01 265;
+    --sidebar-border: 0.22 0.02 265;
+    --sidebar-ring: 0.62 0.22 285;
   }
 
   * {
     @apply border-border;
   }
 
+  html {
+    color-scheme: dark;
+  }
+
   body {
     @apply bg-background text-foreground;
-    font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, sans-serif;
+    font-family: 'Sora', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -99,74 +136,150 @@
   background: oklch(var(--background));
 }
 
-/* ── Category chip colors ── */
+/* ── Category chip colors — dark-themed ── */
 .chip-tea {
-  background: oklch(0.94 0.05 75);
-  color: oklch(0.42 0.12 60);
+  background: oklch(0.24 0.08 65 / 0.85);
+  color: oklch(0.90 0.18 70);
 }
 .chip-bakery {
-  background: oklch(0.93 0.06 35);
-  color: oklch(0.40 0.14 28);
+  background: oklch(0.22 0.07 30 / 0.85);
+  color: oklch(0.88 0.18 40);
 }
 .chip-tuition {
-  background: oklch(0.91 0.07 290);
-  color: oklch(0.38 0.15 280);
+  background: oklch(0.22 0.07 285 / 0.85);
+  color: oklch(0.82 0.18 285);
 }
 .chip-supermarket {
-  background: oklch(0.92 0.07 145);
-  color: oklch(0.38 0.14 145);
+  background: oklch(0.20 0.08 148 / 0.85);
+  color: oklch(0.80 0.18 148);
 }
 .chip-courier {
-  background: oklch(0.90 0.06 200);
-  color: oklch(0.35 0.11 200);
+  background: oklch(0.20 0.07 195 / 0.85);
+  color: oklch(0.80 0.16 195);
 }
 .chip-clinic {
-  background: oklch(0.91 0.05 340);
-  color: oklch(0.40 0.14 340);
+  background: oklch(0.22 0.07 340 / 0.85);
+  color: oklch(0.85 0.22 340);
 }
 .chip-others {
-  background: oklch(0.91 0.02 240);
-  color: oklch(0.38 0.06 240);
+  background: oklch(0.20 0.03 265 / 0.85);
+  color: oklch(0.75 0.04 265);
 }
 .chip-all {
-  background: oklch(0.92 0.05 55);
-  color: oklch(0.42 0.14 50);
+  background: oklch(0.22 0.08 65 / 0.85);
+  color: oklch(0.88 0.18 65);
 }
 
-/* ── Saffron gradient background for hero ── */
-.saffron-hero {
+/* ── Gradient header (deep dark violet) ── */
+.gradient-header {
+  background: linear-gradient(135deg, oklch(0.14 0.05 275), oklch(0.10 0.03 280));
+  border-bottom: 1px solid oklch(0.22 0.04 275 / 0.5);
+}
+
+/* ── Hero gradient (dark deep violet) ── */
+.hero-gradient {
   background: linear-gradient(
-    135deg,
-    oklch(0.35 0.09 210) 0%,
-    oklch(0.28 0.08 225) 60%,
-    oklch(0.22 0.06 240) 100%
+    148deg,
+    oklch(0.13 0.06 280) 0%,
+    oklch(0.09 0.03 270) 50%,
+    oklch(0.07 0.02 265) 100%
   );
 }
 
-/* ── Status badge colors ── */
+/* ── Saffron hero (legacy alias) ── */
+.saffron-hero {
+  background: linear-gradient(
+    148deg,
+    oklch(0.13 0.06 280) 0%,
+    oklch(0.09 0.03 270) 50%,
+    oklch(0.07 0.02 265) 100%
+  );
+}
+
+/* ── Active nav pill ── */
+.nav-active-pill {
+  background: oklch(var(--violet-light));
+  border-radius: 12px;
+}
+
+/* ── CTA glow button ── */
+.btn-glow {
+  box-shadow: 0 4px 20px oklch(0.62 0.22 285 / 0.50);
+}
+.btn-glow:hover {
+  box-shadow: 0 6px 28px oklch(0.62 0.22 285 / 0.65);
+}
+
+/* ── Pink glow variant ── */
+.btn-glow-pink {
+  box-shadow: 0 4px 20px oklch(0.65 0.26 340 / 0.50);
+}
+.btn-glow-pink:hover {
+  box-shadow: 0 6px 28px oklch(0.65 0.26 340 / 0.65);
+}
+
+/* ── Card elevated ── */
+.card-elevated {
+  box-shadow:
+    0 4px 24px oklch(0.62 0.22 285 / 0.15),
+    0 1px 4px oklch(0 0 0 / 0.4);
+}
+
+/* ── Glowing card (violet border) ── */
+.card-glow-violet {
+  border-color: oklch(0.62 0.22 285 / 0.35);
+  box-shadow:
+    0 0 0 1px oklch(0.62 0.22 285 / 0.15),
+    0 4px 24px oklch(0.62 0.22 285 / 0.20),
+    0 1px 4px oklch(0 0 0 / 0.5);
+}
+
+/* ── Glowing card (pink border) ── */
+.card-glow-pink {
+  border-color: oklch(0.65 0.26 340 / 0.35);
+  box-shadow:
+    0 0 0 1px oklch(0.65 0.26 340 / 0.15),
+    0 4px 24px oklch(0.65 0.26 340 / 0.20),
+    0 1px 4px oklch(0 0 0 / 0.5);
+}
+
+/* ── Status border lines ── */
+.status-border-accepted {
+  border-left: 3px solid oklch(var(--success));
+}
+.status-border-pending {
+  border-left: 3px solid oklch(var(--saffron));
+}
+.status-border-rejected {
+  border-left: 3px solid oklch(var(--destructive));
+}
+
+/* ── Status badge colors — dark-themed ── */
 .status-pending {
-  background: oklch(0.92 0.08 75);
-  color: oklch(0.42 0.14 60);
+  background: oklch(0.24 0.08 65 / 0.8);
+  color: oklch(0.90 0.18 65);
 }
 .status-accepted {
-  background: oklch(0.90 0.10 145);
-  color: oklch(0.35 0.14 145);
+  background: oklch(0.20 0.08 145 / 0.8);
+  color: oklch(0.82 0.18 145);
 }
 .status-rejected {
-  background: oklch(0.92 0.08 27);
-  color: oklch(0.42 0.16 27);
+  background: oklch(0.22 0.08 27 / 0.8);
+  color: oklch(0.85 0.20 27);
 }
 
 /* ── Job card hover ── */
 .job-card {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 .job-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px oklch(0.42 0.11 200 / 0.15);
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 32px oklch(0.62 0.22 285 / 0.22),
+    0 2px 8px oklch(0 0 0 / 0.5);
 }
 
-/* ── Bottom nav ── */
+/* ── Bottom nav — dark surface ── */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -174,13 +287,39 @@
   transform: translateX(-50%);
   width: 100%;
   max-width: 430px;
-  background: oklch(1 0 0);
-  border-top: 1px solid oklch(var(--border));
+  background: oklch(0.11 0.03 268);
+  border-top: 1px solid oklch(0.22 0.04 265 / 0.5);
   z-index: 50;
   padding-bottom: env(safe-area-inset-bottom, 0px);
+  backdrop-filter: blur(12px);
 }
 
-/* ── Skeleton pulse ── */
+/* ── Dot pulse loading animation ── */
+@keyframes dotPulse {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }
+  40%           { transform: scale(1.1); opacity: 1; }
+}
+.dot-pulse span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: oklch(0.62 0.22 285);
+  animation: dotPulse 1.4s ease-in-out infinite;
+}
+.dot-pulse span:nth-child(2) { animation-delay: 0.2s; }
+.dot-pulse span:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── Violet pulse ring ── */
+@keyframes violetPulse {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.62 0.22 285 / 0.4); }
+  50%       { box-shadow: 0 0 0 12px oklch(0.62 0.22 285 / 0); }
+}
+.violet-pulse-ring {
+  animation: violetPulse 2s ease-in-out infinite;
+}
+
+/* ── Skeleton pulse — dark ── */
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -188,20 +327,82 @@
 .skeleton {
   background: linear-gradient(
     90deg,
-    oklch(0.93 0.01 70) 25%,
-    oklch(0.97 0.005 70) 50%,
-    oklch(0.93 0.01 70) 75%
+    oklch(0.15 0.02 265) 25%,
+    oklch(0.20 0.03 265) 50%,
+    oklch(0.15 0.02 265) 75%
   );
   background-size: 200% auto;
   animation: shimmer 1.5s linear infinite;
   border-radius: 6px;
 }
 
-/* ── Scrollbar hide for category chips ── */
+/* ── Scrollbar hide ── */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ── Gradient text — violet to pink ── */
+.gradient-text-saffron {
+  background: linear-gradient(100deg, oklch(0.80 0.22 285), oklch(0.75 0.26 320), oklch(0.72 0.28 345));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Gradient text — cyan to violet ── */
+.gradient-text-cyan {
+  background: linear-gradient(100deg, oklch(0.75 0.15 195), oklch(0.72 0.20 240));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ── Active nav indicator ── */
+.nav-active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  border-radius: 2px 2px 0 0;
+}
+
+/* ── Glassmorphism surface ── */
+.glass-surface {
+  background: oklch(0.15 0.03 270 / 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid oklch(0.30 0.05 270 / 0.3);
+}
+
+/* ── Neon gradient badge ── */
+.badge-violet-cyan {
+  background: linear-gradient(90deg, oklch(0.62 0.22 285), oklch(0.70 0.18 220));
+  color: white;
+}
+
+/* ── Neon gradient badge — pink ── */
+.badge-pink {
+  background: linear-gradient(90deg, oklch(0.65 0.26 340), oklch(0.62 0.22 285));
+  color: white;
+}
+
+/* ── Pay highlight gradient ── */
+.pay-gradient {
+  background: linear-gradient(135deg, oklch(0.20 0.06 285), oklch(0.16 0.04 300));
+  border: 1px solid oklch(0.62 0.22 285 / 0.25);
+}
+
+/* ── Location chip dark ── */
+.location-chip-dark {
+  background: oklch(0.18 0.04 195 / 0.8);
+  border: 1px solid oklch(0.75 0.15 195 / 0.2);
+  color: oklch(0.80 0.14 195);
 }

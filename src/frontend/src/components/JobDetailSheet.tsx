@@ -17,7 +17,6 @@ import { Textarea } from "@/components/ui/textarea";
 import type { Application, Job } from "@/hooks/useQueries";
 import { ApplicationStatus, useApplyToJob } from "@/hooks/useQueries";
 import {
-  Banknote,
   Building2,
   Calendar,
   CheckCircle2,
@@ -101,13 +100,13 @@ export default function JobDetailSheet({
       <Sheet open={!!job} onOpenChange={(open) => !open && onClose()}>
         <SheetContent
           side="bottom"
-          className="max-h-[90dvh] overflow-y-auto rounded-t-3xl px-5 py-6"
+          className="max-h-[90dvh] overflow-y-auto rounded-t-3xl px-5 py-6 bg-card border-t border-border"
           data-ocid="job_detail.dialog"
         >
           <SheetHeader className="mb-4">
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1">
-                <SheetTitle className="text-lg font-bold leading-tight text-left">
+                <SheetTitle className="font-display text-lg font-bold leading-tight text-left text-foreground">
                   {job.title}
                 </SheetTitle>
                 {businessName && (
@@ -118,7 +117,7 @@ export default function JobDetailSheet({
                 )}
               </div>
               {distanceKm !== undefined && (
-                <div className="flex items-center gap-1 rounded-full bg-teal-light px-2.5 py-1.5 text-teal text-sm font-bold shrink-0">
+                <div className="badge-violet-cyan flex items-center gap-1 rounded-full text-white text-sm font-bold px-2.5 py-1.5 shrink-0">
                   <MapPin className="w-3.5 h-3.5" />
                   {distanceKm.toFixed(1)} km
                 </div>
@@ -131,27 +130,26 @@ export default function JobDetailSheet({
             <CategoryChip category={job.category} size="sm" showEmoji />
           </div>
 
-          {/* Pay */}
-          <div className="flex items-center gap-2 rounded-xl bg-saffron-light p-3 mb-4">
-            <Banknote className="w-5 h-5 text-saffron-dark" />
-            <div>
-              <p className="text-saffron-dark text-xs font-medium">Pay</p>
-              <p className="text-saffron-dark font-bold">
-                {formatPay(job.payAmount, job.payType)}
-              </p>
-            </div>
+          {/* Pay — vivid gradient card */}
+          <div className="w-full rounded-2xl p-4 mb-4 flex flex-col items-start gap-1 bg-gradient-to-br from-violet-dark to-violet/30 border border-violet/30">
+            <p className="text-white/60 text-xs font-semibold uppercase tracking-wider">
+              Pay Rate
+            </p>
+            <p className="text-cyan text-2xl font-black leading-tight">
+              {formatPay(job.payAmount, job.payType)}
+            </p>
           </div>
 
           {/* Address */}
           <div className="flex items-start gap-2 mb-4 text-sm text-muted-foreground">
-            <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-teal" />
+            <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-violet" />
             <span>{job.address || "Dharmapuri, Tamil Nadu"}</span>
           </div>
 
           {/* Description */}
           {job.description && (
             <div className="mb-4">
-              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-2">
                 About the job
               </p>
               <p className="text-sm text-foreground leading-relaxed">
@@ -167,7 +165,7 @@ export default function JobDetailSheet({
               {job.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="bg-muted text-muted-foreground text-xs px-2.5 py-1 rounded-full"
+                  className="bg-muted border border-border/50 text-muted-foreground text-xs px-2.5 py-1 rounded-full"
                 >
                   {tag}
                 </span>
@@ -186,7 +184,7 @@ export default function JobDetailSheet({
 
           {/* CTA */}
           {existingApplication ? (
-            <div className="flex flex-col items-center gap-2 py-3 rounded-xl bg-muted/50">
+            <div className="flex flex-col items-center gap-2 py-3 rounded-xl bg-muted/50 border border-border/50">
               <p className="text-xs text-muted-foreground font-medium">
                 Your application status
               </p>
@@ -196,7 +194,7 @@ export default function JobDetailSheet({
             <Button
               onClick={() => setShowApply(true)}
               data-ocid="job_detail.apply_button"
-              className="w-full h-13 rounded-xl bg-saffron text-white font-bold text-base hover:bg-saffron-dark transition-colors"
+              className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet to-violet-dark text-white font-bold text-base btn-glow transition-all hover:opacity-90"
             >
               Apply Now →
             </Button>
@@ -206,12 +204,20 @@ export default function JobDetailSheet({
 
       {/* Apply dialog */}
       <Dialog open={showApply} onOpenChange={setShowApply}>
-        <DialogContent className="max-w-sm rounded-2xl mx-4">
+        <DialogContent
+          data-ocid="apply.dialog"
+          className="max-w-sm rounded-2xl mx-4 bg-card border-border"
+        >
           <DialogHeader>
-            <DialogTitle>Apply for "{job.title}"</DialogTitle>
+            <DialogTitle className="font-display text-foreground">
+              Apply for "{job.title}"
+            </DialogTitle>
           </DialogHeader>
           <div className="flex flex-col gap-3 py-2">
-            <Label htmlFor="apply-msg" className="text-sm font-semibold">
+            <Label
+              htmlFor="apply-msg"
+              className="text-sm font-semibold text-foreground"
+            >
               Message to Employer (optional)
             </Label>
             <Textarea
@@ -221,14 +227,15 @@ export default function JobDetailSheet({
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={4}
-              className="rounded-xl resize-none"
+              className="rounded-xl resize-none bg-muted border-border/60 text-foreground placeholder:text-muted-foreground"
             />
           </div>
           <DialogFooter className="gap-2 flex-col sm:flex-row">
             <Button
               variant="outline"
               onClick={() => setShowApply(false)}
-              className="rounded-xl"
+              data-ocid="apply.cancel_button"
+              className="rounded-xl border-border text-foreground hover:bg-muted"
             >
               Cancel
             </Button>
@@ -236,7 +243,7 @@ export default function JobDetailSheet({
               onClick={handleApply}
               disabled={applyMutation.isPending}
               data-ocid="apply.submit_button"
-              className="rounded-xl bg-saffron text-white font-bold hover:bg-saffron-dark"
+              className="rounded-xl bg-gradient-to-r from-violet to-violet-dark text-white font-bold btn-glow hover:opacity-90"
             >
               {applyMutation.isPending ? (
                 <>

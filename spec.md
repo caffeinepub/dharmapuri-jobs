@@ -1,48 +1,39 @@
-# Dharmapuri Jobs - Hyperlocal Student Part-Time Job App
+# Dharmapuri Jobs
 
 ## Current State
-Fresh project. No backend or frontend logic exists. This is a new build from scratch.
+Full-stack hyperlocal job app with Motoko backend and React frontend. Has student dashboard, employer dashboard, landing page, loading screen, and job cards. Current design uses a warm saffron + teal light-mode palette on a white/off-white background.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Two-role authentication: Students and Employers (local business owners)
-- Student profile: name, college, skills, availability, location (lat/lng), bio
-- Employer profile: business name, type (tea shop, bakery, clinic, etc.), location, contact
-- Job listings: title, description, pay (daily/hourly/monthly), job type, employer location, distance from student
-- Application system: students apply to jobs, employers review and accept/reject applicants
-- Hyperlocal filtering: show jobs within ~5-6 km of student's location using geo distance calculation
-- Job categories: Tea Shop, Bakery, Tuition Center, Supermarket, Courier, Clinic, Others
-- Dashboard views: student job feed, employer job management
-- Application tracking: students see their applied jobs and status; employers see all applicants per job
-- Sample seed data: realistic Dharmapuri-area employers and job listings
+- Dark mode color palette: deep dark backgrounds (#0D0D1A / navy-black tones in OKLCH), card surfaces in dark elevated layers
+- Glowing gradient job/role cards resembling the reference fintech UI (purple-to-pink gradients, neon-ish glows)
+- Frosted glass / translucent card effects on overlays
+- Vibrant accent neons: electric violet/purple, hot pink/magenta, cyan, matching the reference image palette
+- Bottom nav with dark surface and glowing active icon
+- Header: dark background with subtle gradient, white text
+- Landing hero: full dark gradient background, glowing role cards with gradient fills
 
 ### Modify
-- Nothing (new project)
+- `index.css`: Replace entire OKLCH token set with dark-first palette. Keep structural CSS (.app-shell, .bottom-nav, gradients, .btn-glow, etc.) but update colors to dark theme
+- `tailwind.config.js`: Update extended colors to match new dark palette tokens
+- `LandingPage.tsx`: Dark hero section, glowing role selection cards (student = violet gradient, employer = pink-magenta gradient)
+- `StudentDashboard.tsx`: Dark gradient header, dark card backgrounds, glowing active nav tab
+- `EmployerDashboard.tsx`: Dark gradient header, dark card backgrounds, glowing active nav tab
+- `JobCard.tsx`: Dark card surface, glowing pay badge, vibrant distance pill
+- `LoadingScreen.tsx`: Full dark gradient background, glowing logo pulse
+- All other pages and components: adapt text, border, and background colors to dark theme
 
 ### Remove
-- Nothing (new project)
+- Light parchment / warm white backgrounds
+- Saffron orange as primary – demote to accent only; make violet/purple the primary dark brand color
 
 ## Implementation Plan
-
-### Backend (Motoko)
-1. User profiles: createStudentProfile, createEmployerProfile, getMyProfile, updateProfile
-2. Jobs: postJob, getJobById, listJobsByEmployer, listAllJobs, deleteJob
-3. Applications: applyToJob, getApplicationsByJob, getApplicationsByStudent, updateApplicationStatus (accept/reject)
-4. Geo filtering: store lat/lng on jobs and students; compute haversine distance on query; return jobs within 6km radius
-5. Seed data: 5-8 Dharmapuri-area employer profiles + 10-15 job listings with realistic coordinates
-
-### Frontend (React + Tailwind)
-1. Landing/onboarding: role selection screen (Student or Employer)
-2. Auth: login/register with role
-3. Student flow:
-   - Profile setup (name, college, skills, availability)
-   - Job feed with distance filter (default 6km), search, category filter
-   - Job detail page with Apply button
-   - My Applications tab (pending/accepted/rejected)
-4. Employer flow:
-   - Business profile setup
-   - Post Job form (title, description, pay, category, location)
-   - My Jobs list
-   - Applicants view per job with Accept/Reject controls
-5. Shared: navigation, profile view, loading/error states
+1. Update OKLCH token variables in `index.css` for a full dark-mode-first palette (deep navy background, dark card surfaces, electric violet/purple primary, hot pink accent, cyan secondary)
+2. Update `tailwind.config.js` to expose new violet/pink/cyan color tokens
+3. Redesign `LandingPage.tsx` with dark hero gradient, glowing role cards, frosted pill stats
+4. Redesign `StudentDashboard.tsx` and `EmployerDashboard.tsx` headers and nav to dark + glow style
+5. Redesign `JobCard.tsx` to dark card, glowing pay, vivid distance badge
+6. Update `LoadingScreen.tsx` for dark full-screen gradient
+7. Update `StudentSetupPage.tsx`, `EmployerSetupPage.tsx`, and all components to adapt to dark palette
+8. Run validation

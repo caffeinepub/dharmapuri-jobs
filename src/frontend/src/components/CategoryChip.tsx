@@ -45,15 +45,15 @@ export default function CategoryChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "rounded-full font-medium whitespace-nowrap transition-all duration-150 border-2",
-        size === "sm" ? "px-2.5 py-1 text-xs" : "px-3.5 py-1.5 text-xs",
+        "rounded-full font-semibold whitespace-nowrap transition-all duration-150 border",
+        size === "sm" ? "px-3 py-1.5 text-xs" : "px-4 py-2 text-xs",
         active
-          ? "border-current opacity-100 scale-100 shadow-sm"
-          : "border-transparent opacity-75 hover:opacity-90",
+          ? "border-current opacity-100 scale-105 shadow-md ring-1 ring-current/30"
+          : "border-transparent opacity-60 hover:opacity-85 hover:scale-[1.02]",
         chipClass,
       )}
     >
-      {showEmoji && <span className="mr-1">{emoji}</span>}
+      {showEmoji && <span className="mr-1.5">{emoji}</span>}
       {category}
     </button>
   );

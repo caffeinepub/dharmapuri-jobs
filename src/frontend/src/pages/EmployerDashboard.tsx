@@ -88,25 +88,25 @@ export default function EmployerDashboard() {
 
   return (
     <div className="app-shell flex flex-col min-h-dvh bg-background">
-      {/* Header */}
-      <header className="bg-white px-5 pt-10 pb-4 shadow-xs border-b border-border">
+      {/* Gradient header */}
+      <header className="gradient-header px-5 pt-10 pb-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-bold text-foreground">
+            <h1 className="font-display text-lg font-bold text-white tracking-tight">
               {employer?.businessName ?? "My Business"}
             </h1>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
-              <Building2 className="w-3 h-3 text-saffron" />
+            <div className="flex items-center gap-1 text-xs text-white/55 mt-0.5">
+              <Building2 className="w-3 h-3 text-pink/80" />
               <span>{employer?.businessType ?? "Business"} · Dharmapuri</span>
             </div>
           </div>
           <button
             type="button"
             onClick={logout}
-            className="p-2 rounded-full hover:bg-muted transition-colors"
+            className="w-8 h-8 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-colors"
             aria-label="Sign out"
           >
-            <LogOut className="w-4 h-4 text-muted-foreground" />
+            <LogOut className="w-4 h-4 text-white/80" />
           </button>
         </div>
       </header>
@@ -123,18 +123,23 @@ export default function EmployerDashboard() {
               className="px-4 pt-4"
             >
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-base font-bold">My Posted Jobs</h2>
-                <span className="text-xs text-muted-foreground">
+                <h2 className="font-display text-base font-bold text-foreground">
+                  My Posted Jobs
+                </h2>
+                <span className="text-xs text-muted-foreground font-semibold">
                   {jobs.length} job{jobs.length !== 1 ? "s" : ""}
                 </span>
               </div>
 
               {jobsLoading ? (
-                <div className="flex flex-col gap-3">
+                <div
+                  className="flex flex-col gap-3"
+                  data-ocid="employer_jobs.loading_state"
+                >
                   {[1, 2].map((i) => (
                     <div
                       key={i}
-                      className="bg-white rounded-2xl p-4 shadow-xs border border-border/60"
+                      className="bg-card rounded-2xl p-4 card-elevated border border-border/40"
                     >
                       <Skeleton className="h-4 w-3/4 mb-2" />
                       <Skeleton className="h-3 w-1/2 mb-3" />
@@ -145,18 +150,18 @@ export default function EmployerDashboard() {
               ) : jobs.length === 0 ? (
                 <div
                   data-ocid="employer_jobs.empty_state"
-                  className="flex flex-col items-center py-14 text-center"
+                  className="flex flex-col items-center py-16 text-center"
                 >
-                  <div className="text-4xl mb-3">📋</div>
-                  <p className="font-semibold text-foreground">
+                  <div className="text-6xl mb-4">📋</div>
+                  <p className="font-display font-bold text-foreground text-base">
                     No jobs posted yet
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-sm text-muted-foreground mt-1.5">
                     Post your first job to start hiring students
                   </p>
                   <Button
                     onClick={() => setTab("post")}
-                    className="mt-4 rounded-xl bg-saffron text-white hover:bg-saffron-dark"
+                    className="mt-5 rounded-xl bg-gradient-to-r from-pink to-pink-dark text-white hover:opacity-90 btn-glow-pink"
                   >
                     Post a Job
                   </Button>
@@ -211,21 +216,21 @@ export default function EmployerDashboard() {
       {/* Bottom navigation */}
       <nav className="bottom-nav shadow-bottom">
         <div className="flex">
-          <BottomNavItem
+          <BottomNavItemEmployer
             label="My Jobs"
             icon={<BriefcaseBusiness className="w-5 h-5" />}
             active={tab === "jobs"}
             onClick={() => setTab("jobs")}
             dataOcid="nav.employer_jobs.tab"
           />
-          <BottomNavItem
+          <BottomNavItemEmployer
             label="Post Job"
             icon={<PlusCircle className="w-5 h-5" />}
             active={tab === "post"}
             onClick={() => setTab("post")}
             dataOcid="nav.post_job.tab"
           />
-          <BottomNavItem
+          <BottomNavItemEmployer
             label="Profile"
             icon={<User className="w-5 h-5" />}
             active={tab === "profile"}
@@ -246,7 +251,7 @@ export default function EmployerDashboard() {
   );
 }
 
-function BottomNavItem({
+function BottomNavItemEmployer({
   label,
   icon,
   active,
@@ -264,16 +269,31 @@ function BottomNavItem({
       type="button"
       data-ocid={dataOcid}
       onClick={onClick}
-      className="flex-1 flex flex-col items-center py-3 gap-1 transition-colors"
+      className="flex-1 flex flex-col items-center py-2.5 gap-0.5 relative transition-all duration-200"
     >
-      <div className={active ? "text-saffron" : "text-muted-foreground"}>
-        {icon}
-      </div>
-      <span
-        className={`text-[10px] font-semibold ${active ? "text-saffron" : "text-muted-foreground"}`}
+      {active && (
+        <span
+          className="nav-active-indicator"
+          style={{ background: "oklch(var(--pink))" }}
+        />
+      )}
+      <div
+        className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200"
+        style={active ? { background: "oklch(var(--pink-light))" } : undefined}
       >
-        {label}
-      </span>
+        <div
+          style={{ color: active ? "oklch(var(--pink))" : undefined }}
+          className={active ? "" : "text-muted-foreground"}
+        >
+          {icon}
+        </div>
+        <span className="text-[10px] font-bold">
+          {!active && <span className="text-muted-foreground">{label}</span>}
+          {active && (
+            <span style={{ color: "oklch(var(--pink))" }}>{label}</span>
+          )}
+        </span>
+      </div>
     </button>
   );
 }
@@ -306,15 +326,15 @@ function EmployerJobCard({
   return (
     <div
       data-ocid={`job.item.${index}`}
-      className="bg-white rounded-2xl p-4 shadow-xs border border-border/60"
+      className="bg-card rounded-2xl p-4 card-elevated border border-border/50"
     >
-      <div className="flex items-start justify-between gap-2 mb-2">
+      <div className="flex items-start justify-between gap-2 mb-3">
         <div className="flex-1 min-w-0">
-          <h3 className="font-bold text-sm text-foreground leading-tight truncate">
+          <h3 className="font-semibold text-sm text-foreground leading-tight truncate">
             {job.title}
           </h3>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
-            <Banknote className="w-3 h-3" />
+          <div className="flex items-center gap-1.5 text-sm font-black text-cyan mt-1">
+            <Banknote className="w-3.5 h-3.5 text-cyan/70" />
             <span>
               ₹{Number(job.payAmount).toLocaleString("en-IN")}/{job.payType}
             </span>
@@ -332,7 +352,7 @@ function EmployerJobCard({
           <AlertDialogTrigger asChild>
             <button
               type="button"
-              data-ocid={`job.item.${index}`}
+              data-ocid={`job.delete_button.${index}`}
               className="p-2 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
               aria-label={`Delete job ${index}`}
             >
@@ -343,18 +363,24 @@ function EmployerJobCard({
               )}
             </button>
           </AlertDialogTrigger>
-          <AlertDialogContent className="max-w-[320px] rounded-2xl mx-4">
+          <AlertDialogContent className="max-w-[320px] rounded-2xl mx-4 bg-card border-border">
             <AlertDialogHeader>
-              <AlertDialogTitle>Delete this job?</AlertDialogTitle>
-              <AlertDialogDescription>
+              <AlertDialogTitle className="text-foreground">
+                Delete this job?
+              </AlertDialogTitle>
+              <AlertDialogDescription className="text-muted-foreground">
                 This will remove "{job.title}" and all its applications.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="rounded-xl">
+              <AlertDialogCancel
+                data-ocid={`job.cancel_button.${index}`}
+                className="rounded-xl border-border text-foreground hover:bg-muted"
+              >
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction
+                data-ocid={`job.confirm_button.${index}`}
                 onClick={handleDelete}
                 className="rounded-xl bg-destructive hover:bg-destructive/90"
               >
@@ -370,12 +396,12 @@ function EmployerJobCard({
         <button
           type="button"
           onClick={onViewApplicants}
-          className="flex items-center gap-1.5 text-xs font-semibold text-teal hover:text-teal-dark transition-colors"
+          className="flex items-center gap-1.5 text-xs font-bold text-violet hover:text-violet-dark transition-colors"
         >
           <Users className="w-3.5 h-3.5" />
           {applications.length} applicant{applications.length !== 1 ? "s" : ""}
           {pendingCount > 0 && (
-            <span className="bg-saffron text-white rounded-full px-1.5 py-0.5 text-[9px] font-bold">
+            <span className="bg-pink text-white rounded-full px-1.5 py-0.5 text-[9px] font-bold">
               {pendingCount}
             </span>
           )}
@@ -456,120 +482,159 @@ function PostJobForm({ employer, onSuccess }: PostJobFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5 pb-8">
-      <h2 className="text-base font-bold mb-1">Post a New Job</h2>
+      <div className="bg-card rounded-2xl p-5 card-elevated border border-border/50">
+        <h2 className="font-display text-base font-bold mb-4 text-foreground">
+          Post a New Job
+        </h2>
 
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="job-title" className="text-sm font-semibold">
-          Job Title *
-        </Label>
-        <Input
-          id="job-title"
-          data-ocid="post_job.title.input"
-          placeholder="e.g. Part-time Cashier"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          className="h-12 rounded-xl"
-        />
-      </div>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="job-title"
+              className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+            >
+              Job Title *
+            </Label>
+            <Input
+              id="job-title"
+              data-ocid="post_job.title.input"
+              placeholder="e.g. Part-time Cashier"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-pink/40"
+            />
+          </div>
 
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="job-desc" className="text-sm font-semibold">
-          Description
-        </Label>
-        <Textarea
-          id="job-desc"
-          data-ocid="post_job.description.textarea"
-          placeholder="Describe the job, timings, and requirements…"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={4}
-          className="rounded-xl resize-none"
-        />
-      </div>
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="job-desc"
+              className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+            >
+              Description
+            </Label>
+            <Textarea
+              id="job-desc"
+              data-ocid="post_job.description.textarea"
+              placeholder="Describe the job, timings, and requirements…"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={4}
+              className="rounded-xl resize-none bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-pink/40"
+            />
+          </div>
 
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="job-category" className="text-sm font-semibold">
-          Category *
-        </Label>
-        <Select value={category} onValueChange={setCategory}>
-          <SelectTrigger id="job-category" className="h-12 rounded-xl">
-            <SelectValue placeholder="Select category" />
-          </SelectTrigger>
-          <SelectContent>
-            {CATEGORIES.map((c) => (
-              <SelectItem key={c} value={c}>
-                {c}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="job-category"
+              className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+            >
+              Category *
+            </Label>
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger
+                id="job-category"
+                className="h-12 rounded-xl bg-muted border-border/60 text-foreground focus:ring-pink/40"
+              >
+                <SelectValue placeholder="Select category" />
+              </SelectTrigger>
+              <SelectContent className="bg-card border-border">
+                {CATEGORIES.map((c) => (
+                  <SelectItem
+                    key={c}
+                    value={c}
+                    className="text-foreground focus:bg-muted"
+                  >
+                    {c}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
 
-      <div className="flex gap-3">
-        <div className="flex flex-col gap-2 flex-1">
-          <Label htmlFor="pay-amount" className="text-sm font-semibold">
-            Pay Amount *
-          </Label>
-          <Input
-            id="pay-amount"
-            type="number"
-            placeholder="e.g. 500"
-            value={payAmount}
-            onChange={(e) => setPayAmount(e.target.value)}
-            min={1}
-            required
-            className="h-12 rounded-xl"
-          />
+          <div className="flex gap-3">
+            <div className="flex flex-col gap-2 flex-1">
+              <Label
+                htmlFor="pay-amount"
+                className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+              >
+                Pay Amount *
+              </Label>
+              <Input
+                id="pay-amount"
+                type="number"
+                placeholder="e.g. 500"
+                value={payAmount}
+                onChange={(e) => setPayAmount(e.target.value)}
+                min={1}
+                required
+                className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-pink/40"
+              />
+            </div>
+            <div className="flex flex-col gap-2 w-32">
+              <Label className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                Pay Type
+              </Label>
+              <Select value={payType} onValueChange={setPayType}>
+                <SelectTrigger className="h-12 rounded-xl bg-muted border-border/60 text-foreground focus:ring-pink/40">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-card border-border">
+                  {PAY_TYPES.map((pt) => (
+                    <SelectItem
+                      key={pt}
+                      value={pt}
+                      className="text-foreground focus:bg-muted"
+                    >
+                      {pt}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="job-address"
+              className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+            >
+              Address
+            </Label>
+            <Input
+              id="job-address"
+              placeholder="Shop/office address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-pink/40"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label
+              htmlFor="job-tags"
+              className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+            >
+              Tags (optional)
+            </Label>
+            <Input
+              id="job-tags"
+              placeholder="e.g. Weekend, Part-time, No experience"
+              value={tagsRaw}
+              onChange={(e) => setTagsRaw(e.target.value)}
+              className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-pink/40"
+            />
+            <p className="text-xs text-muted-foreground">
+              Separate with commas
+            </p>
+          </div>
         </div>
-        <div className="flex flex-col gap-2 w-32">
-          <Label className="text-sm font-semibold">Pay Type</Label>
-          <Select value={payType} onValueChange={setPayType}>
-            <SelectTrigger className="h-12 rounded-xl">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {PAY_TYPES.map((pt) => (
-                <SelectItem key={pt} value={pt}>
-                  {pt}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="job-address" className="text-sm font-semibold">
-          Address
-        </Label>
-        <Input
-          id="job-address"
-          placeholder="Shop/office address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          className="h-12 rounded-xl"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="job-tags" className="text-sm font-semibold">
-          Tags (optional)
-        </Label>
-        <Input
-          id="job-tags"
-          placeholder="e.g. Weekend, Part-time, No experience"
-          value={tagsRaw}
-          onChange={(e) => setTagsRaw(e.target.value)}
-          className="h-12 rounded-xl"
-        />
-        <p className="text-xs text-muted-foreground">Separate with commas</p>
       </div>
 
       {/* Location note */}
-      <div className="flex items-start gap-2 rounded-xl bg-saffron-light p-3">
-        <MapPin className="w-4 h-4 text-saffron-dark mt-0.5 shrink-0" />
-        <p className="text-saffron-dark text-xs">
+      <div className="flex items-start gap-2 rounded-xl p-3 border border-violet/20 bg-violet-light/50">
+        <MapPin className="w-4 h-4 text-violet mt-0.5 shrink-0" />
+        <p className="text-violet text-xs">
           Location auto-filled from your business profile
         </p>
       </div>
@@ -578,7 +643,7 @@ function PostJobForm({ employer, onSuccess }: PostJobFormProps) {
         type="submit"
         data-ocid="post_job.submit_button"
         disabled={postJob.isPending}
-        className="h-13 rounded-xl bg-saffron text-white font-bold text-base hover:bg-saffron-dark"
+        className="h-14 rounded-2xl bg-gradient-to-r from-pink to-pink-dark text-white font-bold text-base btn-glow-pink transition-all hover:opacity-90"
       >
         {postJob.isPending ? (
           <>
@@ -615,10 +680,11 @@ function ApplicantsSheet({ job, onClose }: { job: Job; onClose: () => void }) {
     <Sheet open onOpenChange={(open) => !open && onClose()}>
       <SheetContent
         side="bottom"
-        className="max-h-[85dvh] overflow-y-auto rounded-t-3xl px-5 py-6"
+        data-ocid="applicants.sheet"
+        className="max-h-[85dvh] overflow-y-auto rounded-t-3xl px-5 py-6 bg-card border-t border-border"
       >
         <SheetHeader className="mb-4">
-          <SheetTitle className="text-left">
+          <SheetTitle className="text-left font-display text-foreground">
             Applicants for "{job.title}"
           </SheetTitle>
         </SheetHeader>
@@ -628,7 +694,7 @@ function ApplicantsSheet({ job, onClose }: { job: Job; onClose: () => void }) {
             {[1, 2].map((i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl p-4 border border-border/60"
+                className="bg-muted rounded-2xl p-4 border border-border/40"
               >
                 <Skeleton className="h-4 w-1/2 mb-2" />
                 <Skeleton className="h-3 w-full mb-2" />
@@ -636,9 +702,12 @@ function ApplicantsSheet({ job, onClose }: { job: Job; onClose: () => void }) {
             ))}
           </div>
         ) : applications.length === 0 ? (
-          <div className="flex flex-col items-center py-10 text-center">
-            <div className="text-3xl mb-2">👥</div>
-            <p className="font-semibold text-foreground text-sm">
+          <div
+            data-ocid="applicants.empty_state"
+            className="flex flex-col items-center py-10 text-center"
+          >
+            <div className="text-5xl mb-3">👥</div>
+            <p className="font-display font-bold text-foreground text-sm">
               No applicants yet
             </p>
             <p className="text-xs text-muted-foreground mt-1">
@@ -685,12 +754,16 @@ function ApplicantCard({
   const appliedDate = new Date(
     Number(app.appliedAt) / 1_000_000,
   ).toLocaleDateString("en-IN");
+  const initial = "S";
 
   return (
-    <div className="bg-white rounded-2xl p-4 border border-border/60 shadow-xs">
+    <div
+      data-ocid={`applicant.item.${index}`}
+      className="bg-muted rounded-2xl p-4 border border-border/40"
+    >
       <div className="flex items-start gap-3 mb-2">
-        <div className="w-9 h-9 rounded-full bg-teal-light flex items-center justify-center shrink-0">
-          <span className="text-teal text-sm font-bold">S</span>
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet to-violet-dark flex items-center justify-center shrink-0">
+          <span className="text-white text-sm font-bold">{initial}</span>
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-xs font-semibold text-foreground font-mono">
@@ -714,9 +787,9 @@ function ApplicantCard({
       </div>
 
       {app.message && (
-        <p className="text-xs text-muted-foreground bg-muted/60 rounded-lg p-2 mb-3 leading-relaxed italic">
+        <blockquote className="text-xs text-muted-foreground bg-background/60 rounded-lg p-2.5 mb-3 leading-relaxed italic border-l-2 border-violet/30">
           "{app.message}"
-        </p>
+        </blockquote>
       )}
 
       {app.status === ApplicationStatus.pending && (

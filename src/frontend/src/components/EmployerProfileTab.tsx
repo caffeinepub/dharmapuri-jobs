@@ -82,34 +82,44 @@ export default function EmployerProfileTab() {
     return (
       <div className="flex flex-col gap-4 pb-8">
         <div className="flex items-center justify-between mb-1">
-          <h2 className="text-base font-bold">Edit Business Profile</h2>
+          <h2 className="text-base font-bold text-foreground">
+            Edit Business Profile
+          </h2>
           <button
             type="button"
             onClick={() => setEditing(false)}
-            className="p-2 rounded-full hover:bg-muted"
+            className="p-2 rounded-full hover:bg-muted text-muted-foreground"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label className="text-sm font-semibold">Business Name</Label>
+          <Label className="text-sm font-semibold text-foreground">
+            Business Name
+          </Label>
           <Input
             value={businessName}
             onChange={(e) => setBusinessName(e.target.value)}
-            className="h-11 rounded-xl"
+            className="h-11 rounded-xl bg-muted border-border/60 text-foreground focus-visible:ring-pink/40"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label className="text-sm font-semibold">Business Type</Label>
+          <Label className="text-sm font-semibold text-foreground">
+            Business Type
+          </Label>
           <Select value={businessType} onValueChange={setBusinessType}>
-            <SelectTrigger className="h-11 rounded-xl">
+            <SelectTrigger className="h-11 rounded-xl bg-muted border-border/60 text-foreground focus:ring-pink/40">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-card border-border">
               {BUSINESS_TYPES.map((t) => (
-                <SelectItem key={t} value={t}>
+                <SelectItem
+                  key={t}
+                  value={t}
+                  className="text-foreground focus:bg-muted"
+                >
                   {t}
                 </SelectItem>
               ))}
@@ -118,28 +128,32 @@ export default function EmployerProfileTab() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label className="text-sm font-semibold">Contact Number</Label>
+          <Label className="text-sm font-semibold text-foreground">
+            Contact Number
+          </Label>
           <Input
             type="tel"
             value={contactNumber}
             onChange={(e) => setContactNumber(e.target.value)}
-            className="h-11 rounded-xl"
+            className="h-11 rounded-xl bg-muted border-border/60 text-foreground focus-visible:ring-pink/40"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <Label className="text-sm font-semibold">Address</Label>
+          <Label className="text-sm font-semibold text-foreground">
+            Address
+          </Label>
           <Input
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            className="h-11 rounded-xl"
+            className="h-11 rounded-xl bg-muted border-border/60 text-foreground focus-visible:ring-pink/40"
           />
         </div>
 
         <Button
           onClick={handleSave}
           disabled={updateProfile.isPending}
-          className="h-12 rounded-xl bg-saffron text-white font-bold hover:bg-saffron-dark"
+          className="h-12 rounded-xl bg-gradient-to-r from-pink to-pink-dark text-white font-bold hover:opacity-90 btn-glow-pink"
         >
           {updateProfile.isPending ? (
             <>
@@ -158,9 +172,9 @@ export default function EmployerProfileTab() {
   return (
     <div className="flex flex-col gap-4 pb-8">
       {/* Business header card */}
-      <div className="bg-white rounded-2xl p-4 shadow-xs border border-border/60 flex items-center gap-4">
-        <div className="w-14 h-14 rounded-full bg-saffron-light flex items-center justify-center shrink-0">
-          <span className="text-2xl font-bold text-saffron">
+      <div className="bg-card rounded-2xl p-4 card-elevated border border-border/50 flex items-center gap-4">
+        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-pink to-pink-dark flex items-center justify-center shrink-0 shadow-pink-glow">
+          <span className="text-2xl font-bold text-white">
             {(employer.businessName || "?")[0]?.toUpperCase()}
           </span>
         </div>
@@ -179,7 +193,7 @@ export default function EmployerProfileTab() {
           variant="outline"
           size="sm"
           onClick={startEdit}
-          className="rounded-xl shrink-0"
+          className="rounded-xl shrink-0 border-border/60 text-foreground hover:bg-muted"
         >
           <Edit2 className="w-4 h-4 mr-1" /> Edit
         </Button>
@@ -196,13 +210,11 @@ export default function EmployerProfileTab() {
       />
 
       {/* Location */}
-      <div className="flex items-start gap-2 rounded-xl bg-saffron-light p-3">
-        <MapPin className="w-4 h-4 text-saffron-dark mt-0.5 shrink-0" />
+      <div className="flex items-start gap-2 rounded-xl bg-pink-light/50 p-3 border border-pink/20">
+        <MapPin className="w-4 h-4 text-pink mt-0.5 shrink-0" />
         <div>
-          <p className="text-saffron-dark text-xs font-semibold">
-            Job Visibility Area
-          </p>
-          <p className="text-saffron-dark/80 text-xs">
+          <p className="text-pink text-xs font-semibold">Job Visibility Area</p>
+          <p className="text-pink/60 text-xs">
             Students within 5–6 km of Dharmapuri will see your jobs
           </p>
         </div>
@@ -226,8 +238,8 @@ function InfoRow({
   value,
 }: { icon: string; label: string; value: string }) {
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-xs border border-border/60 flex items-center gap-3">
-      <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center shrink-0 text-base">
+    <div className="bg-card rounded-2xl p-4 card-elevated border border-border/50 flex items-center gap-3">
+      <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center shrink-0 text-base border border-border/50">
         {icon}
       </div>
       <div>

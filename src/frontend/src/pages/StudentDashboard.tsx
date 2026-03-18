@@ -20,7 +20,6 @@ import {
 import {
   BriefcaseBusiness,
   ListChecks,
-  Loader2,
   LogOut,
   MapPin,
   Search,
@@ -85,6 +84,8 @@ export default function StudentDashboard() {
   const [selectedJob, setSelectedJob] = useState<JobWithDistance | null>(null);
 
   const { data: profile } = useGetMyProfile();
+  const studentName =
+    profile?.__kind__ === "student" ? profile.student.name : null;
   const studentLat =
     profile?.__kind__ === "student"
       ? profile.student.locationLat
@@ -133,25 +134,25 @@ export default function StudentDashboard() {
 
   return (
     <div className="app-shell flex flex-col min-h-dvh bg-background">
-      {/* Top header */}
-      <header className="bg-white px-5 pt-safe-top pt-10 pb-4 shadow-xs border-b border-border">
+      {/* Gradient header */}
+      <header className="gradient-header px-5 pt-10 pb-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-lg font-bold text-foreground">
-              Dharmapuri Jobs
+            <h1 className="font-display text-lg font-bold text-white tracking-tight">
+              {studentName ? `Hi, ${studentName} 👋` : "Dharmapuri Jobs"}
             </h1>
-            <div className="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
-              <MapPin className="w-3 h-3 text-teal" />
+            <div className="flex items-center gap-1 text-xs text-white/55 mt-0.5">
+              <MapPin className="w-3 h-3 text-violet/80" />
               <span>Dharmapuri, TN</span>
             </div>
           </div>
           <button
             type="button"
             onClick={logout}
-            className="p-2 rounded-full hover:bg-muted transition-colors"
+            className="w-8 h-8 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white/20 transition-colors"
             aria-label="Sign out"
           >
-            <LogOut className="w-4 h-4 text-muted-foreground" />
+            <LogOut className="w-4 h-4 text-white/80" />
           </button>
         </div>
       </header>
@@ -175,17 +176,17 @@ export default function StudentDashboard() {
                   placeholder="Search jobs, places…"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="h-11 rounded-xl pl-9 bg-white"
+                  className="h-11 rounded-xl pl-9 bg-muted border-border/60 text-foreground placeholder:text-muted-foreground shadow-none focus-visible:ring-violet/40"
                 />
               </div>
 
               {/* Radius */}
-              <div className="bg-white rounded-xl p-3 mb-3 shadow-xs border border-border/60">
+              <div className="bg-card rounded-xl p-3.5 mb-3 card-elevated border border-border/50">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-xs font-semibold text-muted-foreground">
                     Search radius
                   </span>
-                  <span className="text-xs font-bold text-teal">
+                  <span className="text-xs font-black text-violet">
                     {radiusKm} km
                   </span>
                 </div>
@@ -221,20 +222,24 @@ export default function StudentDashboard() {
               </div>
 
               {/* Jobs count */}
-              <p className="text-xs text-muted-foreground mb-3 font-medium">
+              <p className="text-xs text-muted-foreground mb-3 font-semibold">
                 {filteredJobs.length} job{filteredJobs.length !== 1 ? "s" : ""}{" "}
                 found {category !== "All" && `in ${category}`}
               </p>
 
               {/* Job list */}
               {jobsLoading ? (
-                <div className="flex flex-col gap-3">
+                <div
+                  className="flex flex-col gap-3"
+                  data-ocid="job_feed.loading_state"
+                >
                   {[1, 2, 3].map((i) => (
                     <div
                       key={i}
-                      className="bg-white rounded-2xl p-4 shadow-xs border border-border/60"
+                      className="bg-card rounded-2xl p-4 card-elevated border border-border/40"
                     >
                       <Skeleton className="h-4 w-3/4 mb-2" />
+                      <Skeleton className="h-5 w-1/3 mb-2" />
                       <Skeleton className="h-3 w-1/2 mb-3" />
                       <Skeleton className="h-3 w-2/3" />
                     </div>
@@ -243,11 +248,13 @@ export default function StudentDashboard() {
               ) : filteredJobs.length === 0 ? (
                 <div
                   data-ocid="job_feed.empty_state"
-                  className="flex flex-col items-center justify-center py-14 text-center"
+                  className="flex flex-col items-center justify-center py-16 text-center"
                 >
-                  <div className="text-4xl mb-3">🔍</div>
-                  <p className="font-semibold text-foreground">No jobs found</p>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <div className="text-6xl mb-4">🔍</div>
+                  <p className="font-display font-bold text-foreground text-base">
+                    No jobs found
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1.5 max-w-[200px]">
                     Try increasing the search radius or changing the category
                   </p>
                 </div>
@@ -275,13 +282,18 @@ export default function StudentDashboard() {
               exit={{ opacity: 0 }}
               className="px-4 pt-4"
             >
-              <h2 className="text-base font-bold mb-4">My Applications</h2>
+              <h2 className="font-display text-base font-bold mb-4 text-foreground">
+                My Applications
+              </h2>
               {appsLoading ? (
-                <div className="flex flex-col gap-3">
+                <div
+                  className="flex flex-col gap-3"
+                  data-ocid="applications.loading_state"
+                >
                   {[1, 2].map((i) => (
                     <div
                       key={i}
-                      className="bg-white rounded-2xl p-4 shadow-xs border border-border/60"
+                      className="bg-card rounded-2xl p-4 card-elevated border border-border/40"
                     >
                       <Skeleton className="h-4 w-3/4 mb-2" />
                       <Skeleton className="h-3 w-1/2" />
@@ -291,18 +303,18 @@ export default function StudentDashboard() {
               ) : applications.length === 0 ? (
                 <div
                   data-ocid="applications.empty_state"
-                  className="flex flex-col items-center justify-center py-14 text-center"
+                  className="flex flex-col items-center justify-center py-16 text-center"
                 >
-                  <div className="text-4xl mb-3">📋</div>
-                  <p className="font-semibold text-foreground">
+                  <div className="text-6xl mb-4">📋</div>
+                  <p className="font-display font-bold text-foreground text-base">
                     No applications yet
                   </p>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-sm text-muted-foreground mt-1.5">
                     Browse jobs and apply to get started
                   </p>
                   <Button
                     onClick={() => setTab("feed")}
-                    className="mt-4 rounded-xl bg-teal text-white hover:bg-teal-dark"
+                    className="mt-5 rounded-xl bg-gradient-to-r from-violet to-violet-dark text-white hover:opacity-90 btn-glow"
                   >
                     Browse Jobs
                   </Button>
@@ -400,18 +412,36 @@ function BottomNavItem({
       type="button"
       data-ocid={dataOcid}
       onClick={onClick}
-      className="flex-1 flex flex-col items-center py-3 gap-1 relative transition-colors"
+      className="flex-1 flex flex-col items-center py-2.5 gap-0.5 relative transition-all duration-200"
     >
-      <div className={active ? "text-teal" : "text-muted-foreground"}>
-        {icon}
-      </div>
-      <span
-        className={`text-[10px] font-semibold ${active ? "text-teal" : "text-muted-foreground"}`}
+      {active && (
+        <span
+          className="nav-active-indicator"
+          style={{ background: "oklch(var(--violet))" }}
+        />
+      )}
+      <div
+        className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all duration-200"
+        style={
+          active ? { background: "oklch(var(--violet-light))" } : undefined
+        }
       >
-        {label}
-      </span>
+        <div
+          style={{ color: active ? "oklch(var(--violet))" : undefined }}
+          className={active ? "" : "text-muted-foreground"}
+        >
+          {icon}
+        </div>
+        <span
+          className="text-[10px] font-bold"
+          style={{ color: active ? "oklch(var(--violet))" : undefined }}
+        >
+          {!active && <span className="text-muted-foreground">{label}</span>}
+          {active && label}
+        </span>
+      </div>
       {!!badge && badge > 0 && (
-        <span className="absolute top-2 right-1/4 w-4 h-4 rounded-full bg-saffron text-white text-[9px] font-bold flex items-center justify-center">
+        <span className="absolute top-2 right-1/4 w-4 h-4 rounded-full bg-pink text-white text-[9px] font-bold flex items-center justify-center">
           {badge}
         </span>
       )}
@@ -429,8 +459,17 @@ function ApplicationCard({
   const jd = jobs.find((j) => j.job.id.toString() === app.jobId.toString());
   const job = jd?.job;
 
+  const statusClass =
+    app.status === ApplicationStatus.accepted
+      ? "status-border-accepted"
+      : app.status === ApplicationStatus.rejected
+        ? "status-border-rejected"
+        : "status-border-pending";
+
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-xs border border-border/60 flex items-start justify-between gap-3">
+    <div
+      className={`bg-card rounded-2xl p-4 card-elevated border border-border/40 flex items-start justify-between gap-3 ${statusClass}`}
+    >
       <div className="flex-1 min-w-0">
         <p className="font-semibold text-sm text-foreground truncate">
           {job?.title ?? `Job #${app.jobId.toString()}`}

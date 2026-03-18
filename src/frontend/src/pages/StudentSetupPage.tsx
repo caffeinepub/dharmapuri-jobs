@@ -51,139 +51,165 @@ export default function StudentSetupPage() {
   };
 
   return (
-    <div className="app-shell flex flex-col min-h-dvh">
+    <div className="app-shell flex flex-col min-h-dvh bg-background">
       {/* Header */}
-      <div className="saffron-hero px-6 pt-10 pb-8">
+      <div className="hero-gradient px-6 pt-10 pb-10">
         <motion.div
           initial={{ y: -10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
         >
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-              <GraduationCap className="w-5 h-5 text-white" />
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-violet to-violet-dark flex items-center justify-center border border-violet/30 shadow-violet-glow">
+              <GraduationCap className="w-6 h-6 text-white" />
             </div>
             <div>
-              <p className="text-white/70 text-xs font-medium">Step 1 of 1</p>
-              <h1 className="text-white text-xl font-bold">Student Profile</h1>
+              <p className="text-white/55 text-xs font-semibold uppercase tracking-wider">
+                Step 1 of 1
+              </p>
+              <h1 className="font-display text-white text-xl font-bold tracking-tight">
+                Student Profile
+              </h1>
             </div>
           </div>
-          <p className="text-white/75 text-sm">
+          <p className="text-white/60 text-sm">
             Set up your profile to start applying for jobs
           </p>
         </motion.div>
       </div>
 
       {/* Form */}
-      <div className="flex-1 bg-background px-5 py-6 overflow-y-auto pb-28">
-        <motion.form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-5"
+      <div className="flex-1 bg-background px-4 py-5 overflow-y-auto pb-28">
+        <motion.div
+          className="bg-card rounded-3xl p-5 card-elevated border border-border/50"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="name" className="text-sm font-semibold">
-              Full Name *
-            </Label>
-            <Input
-              id="name"
-              placeholder="e.g. Arjun Kumar"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="h-12 rounded-xl"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="name"
+                className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+              >
+                Full Name *
+              </Label>
+              <Input
+                id="name"
+                data-ocid="setup.name.input"
+                placeholder="e.g. Arjun Kumar"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-violet/40"
+              />
+            </div>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="college" className="text-sm font-semibold">
-              College / Institution *
-            </Label>
-            <Input
-              id="college"
-              placeholder="e.g. Govt. Arts College, Dharmapuri"
-              value={college}
-              onChange={(e) => setCollege(e.target.value)}
-              required
-              className="h-12 rounded-xl"
-            />
-          </div>
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="college"
+                className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+              >
+                College / Institution *
+              </Label>
+              <Input
+                id="college"
+                data-ocid="setup.college.input"
+                placeholder="e.g. Govt. Arts College, Dharmapuri"
+                value={college}
+                onChange={(e) => setCollege(e.target.value)}
+                required
+                className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-violet/40"
+              />
+            </div>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="skills" className="text-sm font-semibold">
-              Skills
-            </Label>
-            <Input
-              id="skills"
-              placeholder="e.g. Delivery, Customer Service, Data Entry"
-              value={skillsRaw}
-              onChange={(e) => setSkillsRaw(e.target.value)}
-              className="h-12 rounded-xl"
-            />
-            <p className="text-xs text-muted-foreground">
-              Separate skills with commas
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="availability" className="text-sm font-semibold">
-              Availability
-            </Label>
-            <Input
-              id="availability"
-              placeholder="e.g. Weekends, Evenings after 5 PM"
-              value={availability}
-              onChange={(e) => setAvailability(e.target.value)}
-              className="h-12 rounded-xl"
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="bio" className="text-sm font-semibold">
-              About You
-            </Label>
-            <Textarea
-              id="bio"
-              placeholder="Tell employers a bit about yourself..."
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              rows={3}
-              className="rounded-xl resize-none"
-            />
-          </div>
-
-          {/* Location note */}
-          <div className="flex items-start gap-2 rounded-xl bg-teal-light p-3">
-            <MapPin className="w-4 h-4 text-teal mt-0.5 shrink-0" />
-            <div>
-              <p className="text-teal text-xs font-semibold">
-                Using Dharmapuri, Tamil Nadu
-              </p>
-              <p className="text-teal/80 text-xs mt-0.5">
-                Jobs near lat 12.1211°N, lng 78.1582°E will be shown
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="skills"
+                className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+              >
+                Skills
+              </Label>
+              <Input
+                id="skills"
+                data-ocid="setup.skills.input"
+                placeholder="e.g. Delivery, Customer Service, Data Entry"
+                value={skillsRaw}
+                onChange={(e) => setSkillsRaw(e.target.value)}
+                className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-violet/40"
+              />
+              <p className="text-xs text-muted-foreground">
+                Separate skills with commas
               </p>
             </div>
-          </div>
 
-          <Button
-            type="submit"
-            disabled={createProfile.isPending}
-            className="h-13 rounded-xl bg-teal text-white font-semibold text-base hover:bg-teal-dark transition-colors mt-2"
-          >
-            {createProfile.isPending ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin mr-2" />
-                Creating Profile…
-              </>
-            ) : (
-              <>
-                <CheckCircle2 className="w-4 h-4 mr-2" />
-                Create Profile & Continue
-              </>
-            )}
-          </Button>
-        </motion.form>
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="availability"
+                className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+              >
+                Availability
+              </Label>
+              <Input
+                id="availability"
+                data-ocid="setup.availability.input"
+                placeholder="e.g. Weekends, Evenings after 5 PM"
+                value={availability}
+                onChange={(e) => setAvailability(e.target.value)}
+                className="h-12 rounded-xl bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-violet/40"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <Label
+                htmlFor="bio"
+                className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground"
+              >
+                About You
+              </Label>
+              <Textarea
+                id="bio"
+                data-ocid="setup.bio.textarea"
+                placeholder="Tell employers a bit about yourself..."
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
+                rows={3}
+                className="rounded-xl resize-none bg-muted border-border/60 text-foreground placeholder:text-muted-foreground focus-visible:ring-violet/40"
+              />
+            </div>
+
+            {/* Location note */}
+            <div className="flex items-start gap-2 rounded-xl bg-violet-light/50 p-3 border border-violet/20">
+              <MapPin className="w-4 h-4 text-violet mt-0.5 shrink-0" />
+              <div>
+                <p className="text-violet text-xs font-semibold">
+                  Using Dharmapuri, Tamil Nadu
+                </p>
+                <p className="text-violet/60 text-xs mt-0.5">
+                  Jobs near lat 12.1211°N, lng 78.1582°E will be shown
+                </p>
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              data-ocid="setup.submit_button"
+              disabled={createProfile.isPending}
+              className="h-14 rounded-2xl bg-gradient-to-r from-violet to-violet-dark text-white font-bold text-base btn-glow transition-all mt-1 hover:opacity-90"
+            >
+              {createProfile.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  Creating Profile…
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-4 h-4 mr-2" />
+                  Create Profile & Continue
+                </>
+              )}
+            </Button>
+          </form>
+        </motion.div>
       </div>
 
       <div className="px-5 pb-4 text-center">

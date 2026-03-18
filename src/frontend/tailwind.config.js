@@ -62,6 +62,20 @@ export default {
           light: "oklch(var(--saffron-light))",
           dark: "oklch(var(--saffron-dark))",
         },
+        violet: {
+          DEFAULT: "oklch(var(--violet))",
+          light: "oklch(var(--violet-light))",
+          dark: "oklch(var(--violet-dark))",
+        },
+        pink: {
+          DEFAULT: "oklch(var(--pink))",
+          light: "oklch(var(--pink-light))",
+          dark: "oklch(var(--pink-dark))",
+        },
+        cyan: {
+          DEFAULT: "oklch(var(--cyan))",
+          light: "oklch(var(--cyan-light))",
+        },
         teal: {
           DEFAULT: "oklch(var(--teal))",
           light: "oklch(var(--teal-light))",
@@ -86,9 +100,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', "Outfit", "system-ui", "sans-serif"],
-        display: ['"Cabinet Grotesk"', '"Plus Jakarta Sans"', "system-ui", "sans-serif"],
-        body: ['"General Sans"', '"Plus Jakarta Sans"', "system-ui", "sans-serif"],
+        sans: ['"Sora"', "system-ui", "sans-serif"],
+        display: ['"Bricolage Grotesque"', '"Sora"', "system-ui", "sans-serif"],
+        body: ['"Sora"', "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -99,10 +113,15 @@ export default {
         "3xl": "1.5rem",
       },
       boxShadow: {
-        xs: "0 1px 2px 0 rgba(0,0,0,0.05)",
-        card: "0 2px 12px 0 rgba(0,0,0,0.08)",
-        "card-hover": "0 4px 20px 0 rgba(0,0,0,0.12)",
-        bottom: "0 -2px 16px 0 rgba(0,0,0,0.07)",
+        xs: "0 1px 2px 0 rgba(0,0,0,0.3)",
+        card: "0 2px 12px 0 rgba(0,0,0,0.4)",
+        "card-hover": "0 4px 20px oklch(0.62 0.22 285 / 0.18)",
+        "card-glow": "0 4px 24px oklch(0.62 0.22 285 / 0.20), 0 1px 3px oklch(0 0 0 / 0.5)",
+        "btn-glow": "0 4px 20px oklch(0.62 0.22 285 / 0.5)",
+        "btn-glow-pink": "0 4px 20px oklch(0.65 0.26 340 / 0.5)",
+        bottom: "0 -2px 16px 0 rgba(0,0,0,0.4)",
+        "violet-glow": "0 0 20px oklch(0.62 0.22 285 / 0.4)",
+        "pink-glow": "0 0 20px oklch(0.65 0.26 340 / 0.4)",
       },
       keyframes: {
         "accordion-down": {
